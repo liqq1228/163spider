@@ -1,18 +1,5 @@
 #!/usr/bin/env python
 #-*-coding:utf-8-*-
-'''
-#=============================================================================
-# FileName:     wangyi.py
-# Desc:         爬虫主程序
-# Author:       leyle
-# Email:        leyle@leyle.com
-# HomePage:     http://www.leyle.com/
-# Git_page:     https://github.com/leyle
-# Version:      0.0.1
-# LastChange:   2014-12-08 10:15:07
-# History:      
-#=============================================================================
-'''
 
 """
     列表 url: http://c.m.163.com/nc/article/list/T1396928667862/150-10.html
@@ -69,7 +56,7 @@ class WANGYI(object):
         if self._data:
             for d in self._data:
                 for title in self._title_key:
-                    if str(d[self._key]).find(title) != -1:
+                    if str(d.get(self._key, 1)).find(title) != -1:
                         tmp = {}
                         tmp["docid"] = d['docid']
                         tmp["cover_img"] = d['imgsrc'] if d.has_key('imgsrc') else ''
@@ -104,7 +91,7 @@ class WANGYI(object):
                 imgs = data['img']
                 body = data['body'].encode('utf-8')
 
-                title = data['title'].replace(' ', '').replace('（', '-').replace('）', '')
+                title = data['title'].replace(' ', '').replace('（', '-').replace('(', '-').replace(')', '').replace('）', '')
 
                 for img in imgs:
                     body = body.replace(img['ref'], "<img src=\"" + img['src'] + "\"/><hr>")
