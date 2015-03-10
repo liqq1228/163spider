@@ -37,10 +37,11 @@ def get_logger(logfile, path="logs/", level=logging.DEBUG, max_byte=1024*1024*50
         else:
             """ create new log file path, pwd+path """
             path = os.path.join(sys.path[0], path)
-            if not path.endswith('/'):
-                path = path + '/'
             if not os.path.isdir(path):
                 os.makedirs(path)
+
+        if not path.endswith('/'):
+            path = path + '/'
 
         handler = logging.handlers.RotatingFileHandler(
                     path + logfile + ".log",
